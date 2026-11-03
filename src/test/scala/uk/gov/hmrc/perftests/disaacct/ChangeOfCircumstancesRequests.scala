@@ -27,5 +27,4 @@ object ChangeOfCircumstancesRequests extends ServicesConfiguration {
     http("Navigate to Change of Circumstances Page")
       .get(s"$disaBaseUrl$disaRoute/change-of-circumstances")
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 }

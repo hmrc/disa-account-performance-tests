@@ -53,7 +53,7 @@ object ProductInformationChangeRequests extends ServicesConfiguration {
       .post(s"$disaBaseUrl/innovative-financial-products": String)
       .formParam("value[1]", "peerToPeerLoansUsingAPlatformWith36HPermissions")
       .formParam("value[2]", "crowdfundedDebentures")
-      .formParam("csrfToken", "#{csrfToken}")
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
       .check(status.is(303))
       .check(header("location").is(s"$disaRoute/change-of-circumstances"))
 

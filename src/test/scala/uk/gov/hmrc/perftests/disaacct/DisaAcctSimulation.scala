@@ -19,7 +19,7 @@ package uk.gov.hmrc.perftests.disaacct
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.disaacct.AuthRequests.{navigateToAuthLoginStubPage, submitLogin}
 import uk.gov.hmrc.perftests.disaacct.AuthorisedUsersChangeRequests._
-import uk.gov.hmrc.perftests.disaacct.ChangeInformationRequests.{navigateToChangeInformationPage, postSectionSelectionFromChangeInformationPage}
+import uk.gov.hmrc.perftests.disaacct.ChangeInformationRequests.{navigateToChangeInformationPage, postSectionSelectionFromChangeInformationNonSignatoryPage, postSectionSelectionFromChangeInformationSignatoryPage}
 import uk.gov.hmrc.perftests.disaacct.ChangeOfCircumstancesRequests.navigateToChangeOfCircumstancesPage
 import OrganisationDetailsChangeRequests._
 import ProductInformationChangeRequests._
@@ -28,11 +28,11 @@ import ProductInformationChangeRequests._
 
 class DisaAcctSimulation extends PerformanceTestRunner {
 
-  setup("ISA-Manager-Account Maintenance", "ISA Manager Account Maintenance- DISA Change Signatory Journey") withRequests (
+  setup("ISA-Manager-Account-Signatory", "ISA Manager Account- DISA Change Signatory Journey") withRequests (
     navigateToAuthLoginStubPage,
     submitLogin("Z1234","change-information","signatory@example.com"),
     navigateToChangeInformationPage,
-    postSectionSelectionFromChangeInformationPage,
+    postSectionSelectionFromChangeInformationSignatoryPage,
     navigateToChangeOfCircumstancesPage,
     getTradingNameChangePage,
     postTradingNamePage,
@@ -70,6 +70,34 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     postChangeSignatoryNamePage,
     getChangeSignatoryJobTitlePage,
     postChangeSignatoryJobTitlePage)
+
+
+  setup("ISA-Manager-Account-Non-Signatory", "ISA Manager Account- DISA Change NonSignatory Journey") withRequests (
+    navigateToAuthLoginStubPage,
+    submitLogin(zrefValue = "Z1234","change-information","user@test.com"),
+    navigateToChangeInformationPage,
+    postSectionSelectionFromChangeInformationNonSignatoryPage,
+    navigateToChangeOfCircumstancesPage,
+    getTradingNameChangePage,
+    postTradingNamePage,
+    getEnterYourOrganisationAddressPage,
+    postEnterYourOrganisationAddressPage,
+    getOrganisationTelephoneNumberPage,
+    postOrganisationTelephoneNumberPage,
+    getOrganisationEmailAddressPage,
+    postOrganisationEmailAddressPage,
+    getEmailVerificationCodePage,
+    getAddedLiaisonOfficersPage,
+    getCheckLiaisonOfficersDetailPage,
+    getChangeLiaisonOfficersNamePage,
+    postChangeLiaisonOfficersNamePage,
+    getChangeLiaisonOfficersEmailPage,
+    postChangeLiaisonOfficersEmailPage,
+    getChangeLiaisonOfficersPhoneNumberPage,
+    postChangeLiaisonOfficersPhoneNumberPage,
+    getChangeLiaisonOfficersCommsPrefPage,
+    postChangeLiaisonOfficersCommsPrefPage)
+
 
   runSimulation()
 
