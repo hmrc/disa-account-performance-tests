@@ -44,28 +44,28 @@ object ProductInformationChangeRequests extends ServicesConfiguration {
 
   val getInnovativeFinancialProductsPage: HttpRequestBuilder =
     http("Get Change Innovative Products Page")
-      .get(s"$disaBaseUrl/innovative-financial-products": String)
+      .get(s"$disaBaseUrl$disaRoute/innovative-financial-products": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postInnovativeFinancialProducts: HttpRequestBuilder =
     http("Post Change Innovative Finance Products Page")
-      .post(s"$disaBaseUrl/innovative-financial-products": String)
+      .post(s"$disaBaseUrl$disaRoute/innovative-financial-products": String)
       .formParam("value[1]", "peerToPeerLoansUsingAPlatformWith36HPermissions")
       .formParam("value[2]", "crowdfundedDebentures")
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
       .check(header("location").is(s"$disaRoute/change-of-circumstances"))
 
   val getPeerToPeerLoansPage: HttpRequestBuilder =
     http("Get Change Peer to Peer Loans Page")
-      .get(s"$disaBaseUrl/peer-to-peer-loans": String)
+      .get(s"$disaBaseUrl$disaRoute/peer-to-peer-loans": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postPeerToPeerLoansPlatform: HttpRequestBuilder =
     http("Post Change Peer To Peer Loans Platform")
-      .post(s"$disaBaseUrl/peer-to-peer-loans": String)
+      .post(s"$disaBaseUrl$disaRoute/peer-to-peer-loans": String)
       .formParam("value", "Test Platform")
       .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
@@ -73,13 +73,13 @@ object ProductInformationChangeRequests extends ServicesConfiguration {
 
   val getFcaPlatformNumberPage: HttpRequestBuilder =
     http("Get Change FCA Platform Number Page")
-      .get(s"$disaBaseUrl/fca-platform-number": String)
+      .get(s"$disaBaseUrl$disaRoute/fca-platform-number": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postFcaPlatformNumber: HttpRequestBuilder =
     http("Post Change FCA Platform Number")
-      .post(s"$disaBaseUrl/fca-platform-number": String)
+      .post(s"$disaBaseUrl$disaRoute/fca-platform-number": String)
       .formParam("value", "1234567")
       .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
@@ -87,13 +87,13 @@ object ProductInformationChangeRequests extends ServicesConfiguration {
 
   val getFcaArticlesPage: HttpRequestBuilder =
     http("Get Change FCA Article Page")
-      .get(s"$disaBaseUrl/fca-articles": String)
+      .get(s"$disaBaseUrl$disaRoute/fca-articles": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postFcaArticlesPage: HttpRequestBuilder =
     http("Post Change FCA Article Page")
-      .post(s"$disaBaseUrl/fca-articles": String)
+      .post(s"$disaBaseUrl$disaRoute/fca-articles": String)
       .formParam("value[3]", "article36H")
       .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))

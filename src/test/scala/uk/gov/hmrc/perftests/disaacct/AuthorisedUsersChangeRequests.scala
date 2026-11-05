@@ -28,12 +28,45 @@ object AuthorisedUsersChangeRequests extends ServicesConfiguration {
       .get(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+      .check(
+        css("a[href*='check-added-liaison-officer']", "href")
+          .transform(_.split("id=").last)
+          .saveAs("formId"))
+
+  val getRemoveLiaisonOfficersPage: HttpRequestBuilder =
+    http("Get Remove Liaison Officer Page")
+      .get(s"$disaBaseUrl$disaRoute/remove-liaison-officer?id=#{formId}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val PostRemoveLiaisonOfficersPage: HttpRequestBuilder =
+    http("Post no from Remove Liaison Officer Page")
+      .get(s"$disaBaseUrl$disaRoute/remove-liaison-officer?id=#{formId}": String)
+      .formParam("value", "no")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+      .check(
+        header("location").is(s"$disaRoute/added-liaison-officers").saveAs("Added liaison officers page")
+      )
+  val getRemoveSignatoryPage: HttpRequestBuilder =
+    http("Get Remove Liaison Officer Page")
+      .get(s"$disaBaseUrl$disaRoute/remove-signatory?id=#{formId}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val PostRemoveSignatoryPage: HttpRequestBuilder =
+    http("Post no from Remove Liaison Officer Page")
+      .get(s"$disaBaseUrl$disaRoute/remove-signatory?id=#{formId}": String)
+      .formParam("value", "no")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+      .check(
+        header("location").is(s"$disaRoute/added-signatories").saveAs("Added Signatories page"))
 
   val getCheckLiaisonOfficersDetailPage: HttpRequestBuilder =
     http("Get Check Added Liaison Officer Page")
       .get(s"$disaBaseUrl$disaRoute/check-added-liaison-officer?id=#{formId}": String)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val getChangeLiaisonOfficersNamePage: HttpRequestBuilder =
     http("Get Change Liaison Officer Name Page")
@@ -82,7 +115,7 @@ object AuthorisedUsersChangeRequests extends ServicesConfiguration {
       )
   val getChangeLiaisonOfficersCommsPrefPage: HttpRequestBuilder =
     http("Get Change Added Liaison Officer Page")
-      .get(s"$disaBaseUrl$disaRoute//change-liaison-officer-communication?id=#{formId}": String)
+      .get(s"$disaBaseUrl$disaRoute/change-liaison-officer-communication?id=#{formId}": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -95,18 +128,33 @@ object AuthorisedUsersChangeRequests extends ServicesConfiguration {
       .check(
         header("location").is(s"$disaRoute/check-added-liaison-officer?id=#{formId}")
       )
+  val navigateToAddedLiaisonOfficersPage: HttpRequestBuilder =
+    http("Navigate to Added Liaison Officer Page")
+      .get(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val PostAddedLiaisonOfficersPage: HttpRequestBuilder =
+    http("Post no from Added Liaison Officer Page")
+      .get(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("value", "no")
+      .check(status.is(303))
 
   val getAddedSignatoriesPage: HttpRequestBuilder =
         http("Get Added Signatory Page")
           .get(s"$disaBaseUrl$disaRoute/added-signatories": String)
           .check(status.is(200))
           .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+          .check(
+            css("a[href*='check-signatory-details']", "href")
+              .transform(_.split("id=").last)
+              .saveAs("formId"))
 
   val getCheckSignatoryDetailPage: HttpRequestBuilder =
     http("Get Check Added Signatory Page")
       .get(s"$disaBaseUrl$disaRoute/check-signatory-details?id=#{formId}": String)
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val getChangeSignatoryNamePage: HttpRequestBuilder =
     http("Get Change Signatory Name Page")

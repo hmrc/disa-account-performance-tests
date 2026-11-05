@@ -18,7 +18,7 @@ package uk.gov.hmrc.perftests.disaacct
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.disaacct.AuthRequests.{navigateToAuthLoginStubPage, submitLogin}
-import uk.gov.hmrc.perftests.disaacct.AuthorisedUsersChangeRequests._
+import uk.gov.hmrc.perftests.disaacct.AuthorisedUsersChangeRequests.{getAddedSignatoriesPage, _}
 import uk.gov.hmrc.perftests.disaacct.ChangeInformationRequests.{navigateToChangeInformationPage, postSectionSelectionFromChangeInformationNonSignatoryPage, postSectionSelectionFromChangeInformationSignatoryPage}
 import uk.gov.hmrc.perftests.disaacct.ChangeOfCircumstancesRequests.navigateToChangeOfCircumstancesPage
 import OrganisationDetailsChangeRequests._
@@ -28,7 +28,7 @@ import ProductInformationChangeRequests._
 
 class DisaAcctSimulation extends PerformanceTestRunner {
 
-  setup("ISA-Manager-Account-Signatory", "ISA Manager Account- DISA Change Signatory Journey") withRequests (
+  setup("ISA-Manager-Account-Signatory-Change", "ISA Manager Account- DISA Change Journey") withRequests (
     navigateToAuthLoginStubPage,
     submitLogin("Z1234","change-information","signatory@example.com"),
     navigateToChangeInformationPage,
@@ -64,6 +64,8 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     postChangeLiaisonOfficersPhoneNumberPage,
     getChangeLiaisonOfficersCommsPrefPage,
     postChangeLiaisonOfficersCommsPrefPage,
+    navigateToAddedLiaisonOfficersPage,
+    PostAddedLiaisonOfficersPage,
     getAddedSignatoriesPage,
     getCheckSignatoryDetailPage,
     getChangeSignatoryNamePage,
@@ -71,6 +73,25 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     getChangeSignatoryJobTitlePage,
     postChangeSignatoryJobTitlePage)
 
+  setup("ISA-Manager-Account-Signatory-Remove-LO", "ISA Manager Account- DISA Remove Liaison Officer Journey") withRequests (
+    navigateToAuthLoginStubPage,
+    submitLogin("Z1234","change-information","signatory@example.com"),
+    navigateToChangeInformationPage,
+    postSectionSelectionFromChangeInformationSignatoryPage,
+    navigateToChangeOfCircumstancesPage,
+    getAddedLiaisonOfficersPage,
+    getRemoveLiaisonOfficersPage,
+    PostRemoveLiaisonOfficersPage)
+
+  setup("ISA-Manager-Account-Signatory-Remove", "ISA Manager Account- DISA Remove Signatory Journey") withRequests (
+    navigateToAuthLoginStubPage,
+    submitLogin("Z1234","change-information","signatory@example.com"),
+    navigateToChangeInformationPage,
+    postSectionSelectionFromChangeInformationSignatoryPage,
+    navigateToChangeOfCircumstancesPage,
+    getAddedLiaisonOfficersPage,
+    getRemoveSignatoryPage,
+    PostRemoveSignatoryPage)
 
   setup("ISA-Manager-Account-Non-Signatory", "ISA Manager Account- DISA Change NonSignatory Journey") withRequests (
     navigateToAuthLoginStubPage,
@@ -96,8 +117,10 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     getChangeLiaisonOfficersPhoneNumberPage,
     postChangeLiaisonOfficersPhoneNumberPage,
     getChangeLiaisonOfficersCommsPrefPage,
-    postChangeLiaisonOfficersCommsPrefPage)
-
+    postChangeLiaisonOfficersCommsPrefPage,
+    getCheckLiaisonOfficersDetailPage,
+    navigateToAddedLiaisonOfficersPage,
+    PostAddedLiaisonOfficersPage)
 
   runSimulation()
 
