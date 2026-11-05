@@ -21,7 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.disaacct.constants.AppConfig.{disaBaseUrl, disaRoute}
-object AuthorisedUsersChangeRequests extends ServicesConfiguration {
+object LiaisonOfficersRequests extends ServicesConfiguration {
 
   val getAddedLiaisonOfficersPage: HttpRequestBuilder =
     http("Get Added Liaison Officer Page")
@@ -41,27 +41,13 @@ object AuthorisedUsersChangeRequests extends ServicesConfiguration {
 
   val PostRemoveLiaisonOfficersPage: HttpRequestBuilder =
     http("Post no from Remove Liaison Officer Page")
-      .get(s"$disaBaseUrl$disaRoute/remove-liaison-officer?id=#{formId}": String)
+      .post(s"$disaBaseUrl$disaRoute/remove-liaison-officer?id=#{formId}": String)
       .formParam("value", "no")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
       .check(
         header("location").is(s"$disaRoute/added-liaison-officers").saveAs("Added liaison officers page")
       )
-  val getRemoveSignatoryPage: HttpRequestBuilder =
-    http("Get Remove Liaison Officer Page")
-      .get(s"$disaBaseUrl$disaRoute/remove-signatory?id=#{formId}": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val PostRemoveSignatoryPage: HttpRequestBuilder =
-    http("Post no from Remove Liaison Officer Page")
-      .get(s"$disaBaseUrl$disaRoute/remove-signatory?id=#{formId}": String)
-      .formParam("value", "no")
-      .formParam("csrfToken", "#{csrfToken}")
-      .check(status.is(303))
-      .check(
-        header("location").is(s"$disaRoute/added-signatories").saveAs("Added Signatories page"))
 
   val getCheckLiaisonOfficersDetailPage: HttpRequestBuilder =
     http("Get Check Added Liaison Officer Page")
@@ -136,55 +122,10 @@ object AuthorisedUsersChangeRequests extends ServicesConfiguration {
 
   val PostAddedLiaisonOfficersPage: HttpRequestBuilder =
     http("Post no from Added Liaison Officer Page")
-      .get(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
+      .post(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "no")
       .check(status.is(303))
-
-  val getAddedSignatoriesPage: HttpRequestBuilder =
-        http("Get Added Signatory Page")
-          .get(s"$disaBaseUrl$disaRoute/added-signatories": String)
-          .check(status.is(200))
-          .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-          .check(
-            css("a[href*='check-signatory-details']", "href")
-              .transform(_.split("id=").last)
-              .saveAs("formId"))
-
-  val getCheckSignatoryDetailPage: HttpRequestBuilder =
-    http("Get Check Added Signatory Page")
-      .get(s"$disaBaseUrl$disaRoute/check-signatory-details?id=#{formId}": String)
-      .check(status.is(200))
-
-  val getChangeSignatoryNamePage: HttpRequestBuilder =
-    http("Get Change Signatory Name Page")
-      .get(s"$disaBaseUrl$disaRoute/change-signatory-name?id=#{formId}": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postChangeSignatoryNamePage: HttpRequestBuilder =
-    http("Post Change Signatory Name Page")
-      .post(s"$disaBaseUrl$disaRoute/change-signatory-name?id=#{formId}": String)
-      .formParam("value", "Test Signatory")
-      .formParam("csrfToken", "#{csrfToken}")
-      .check(status.is(303))
-      .check(
-        header("location").is(s"$disaRoute/check-signatory-details?id=#{formId}").saveAs("Check Signatory Details page")
-      )
-  val getChangeSignatoryJobTitlePage: HttpRequestBuilder =
-    http("Get Change Signatory Job Title Page")
-      .get(s"$disaBaseUrl$disaRoute/change-signatory-job-title?id=#{formId}": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postChangeSignatoryJobTitlePage: HttpRequestBuilder =
-    http("Post Change Signatory Job Title Page")
-      .post(s"$disaBaseUrl$disaRoute/change-signatory-job-title?id=#{formId}": String)
-      .formParam("value", "Director")
-      .formParam("csrfToken", "#{csrfToken}")
-      .check(status.is(303))
-      .check(
-        header("location").is(s"$disaRoute/check-signatory-details?id=#{formId}")
-      )
+      .check(header("location").is(s"$disaRoute/change-of-circumstances"))
 
 }
