@@ -24,12 +24,13 @@ import uk.gov.hmrc.perftests.disaacct.ChangeOfCircumstancesRequests.navigateToCh
 import OrganisationDetailsChangeRequests._
 import ProductInformationChangeRequests._
 import uk.gov.hmrc.perftests.disaacct.SignatoryRequests._
+import uk.gov.hmrc.perftests.disaacct.utils.RandomDataGenerator.generateRandomZReference
 
 class DisaAcctSimulation extends PerformanceTestRunner {
 
   setup("ISA-Manager-Account-Signatory-Change", "ISA Manager Account- DISA Signatory Change Journey") withRequests (
     navigateToAuthLoginStubPage,
-    submitLogin("Z1234","change-information","signatory@example.com"),
+    submitLogin(generateRandomZReference(1000, 9999),"change-information","signatory@example.com"),
     navigateToChangeInformationPage,
     postSectionSelectionFromChangeInformationSignatoryPage,
     navigateToChangeOfCircumstancesPage,
@@ -74,7 +75,7 @@ class DisaAcctSimulation extends PerformanceTestRunner {
 
   setup("ISA-Manager-Account-Signatory-Remove", "ISA Manager Account- DISA Signatory Remove Journey") withRequests (
     navigateToAuthLoginStubPage,
-    submitLogin("Z1234","change-information","signatory@example.com"),
+    submitLogin(generateRandomZReference(1000, 9999),"change-information","signatory@example.com"),
     navigateToChangeInformationPage,
     postSectionSelectionFromChangeInformationSignatoryPage,
     navigateToChangeOfCircumstancesPage,
@@ -89,7 +90,7 @@ class DisaAcctSimulation extends PerformanceTestRunner {
 
   setup("ISA-Manager-Account-Non-Signatory-Change", "ISA Manager Account- DISA Change NonSignatory Journey") withRequests (
     navigateToAuthLoginStubPage,
-    submitLogin("Z1234","change-information","user@test.com"),
+    submitLogin(generateRandomZReference(1000, 9999),"change-information","user@test.com"),
     navigateToChangeInformationPage,
     postSectionSelectionFromChangeInformationNonSignatoryPage,
     navigateToChangeOfCircumstancesPage,
@@ -118,7 +119,7 @@ class DisaAcctSimulation extends PerformanceTestRunner {
 
   setup("ISA-Manager-Account-Non-Signatory-Remove", "ISA Manager Account- DISA Non Signatory Remove Journey") withRequests (
     navigateToAuthLoginStubPage,
-    submitLogin("Z1234","change-information","user@test.com"),
+    submitLogin(generateRandomZReference(1000, 9999),"change-information","user@test.com"),
     navigateToChangeInformationPage,
     postSectionSelectionFromChangeInformationNonSignatoryPage,
     navigateToChangeOfCircumstancesPage,
@@ -127,7 +128,6 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     PostRemoveLiaisonOfficersPage,
     PostAddedLiaisonOfficersPage
   )
-
 
   runSimulation()
 

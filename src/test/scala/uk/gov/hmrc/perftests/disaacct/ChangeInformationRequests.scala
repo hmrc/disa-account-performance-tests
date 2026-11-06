@@ -31,7 +31,7 @@ object ChangeInformationRequests extends ServicesConfiguration {
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postSectionSelectionFromChangeInformationSignatoryPage: HttpRequestBuilder =
-    http("Post section selection From ChangeInformation Page")
+    http("Post section selection From ChangeInformation Signatory Page")
       .post(s"$disaBaseUrl$disaRoute/change-information": String)
       .formParam("value[0]", "organisationInformation")
       .formParam("value[1]", "isaProductInformation")
@@ -42,7 +42,7 @@ object ChangeInformationRequests extends ServicesConfiguration {
         header("location").is(s"$disaRoute/change-of-circumstances").saveAs("ChangeOfCircumstancesSignatoryPage"))
 
   val postSectionSelectionFromChangeInformationNonSignatoryPage: HttpRequestBuilder =
-    http("Post section selection From ChangeInformation Page")
+    http("Post section selection From ChangeInformation NonSignatory Page")
       .post(s"$disaBaseUrl$disaRoute/change-information": String)
       .formParam("value[0]", "organisationInformation")
       .formParam("value[1]", "authorisedUsers")
