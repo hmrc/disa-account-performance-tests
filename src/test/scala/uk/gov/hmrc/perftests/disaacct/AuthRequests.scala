@@ -26,8 +26,8 @@ object AuthRequests extends ServicesConfiguration {
 
   val redirectionBaseUrl: String = s"$disaBaseUrl/manage-isas-account/manage-isas"
 
-  val navigateToAuthLoginStubPage: HttpRequestBuilder =
-    http("Navigate to auth login stub page")
+  val getAuthLoginStubPage: HttpRequestBuilder =
+    http("Get auth login stub page")
       .get(authWizardUrl)
       .check(status.is(200))
 

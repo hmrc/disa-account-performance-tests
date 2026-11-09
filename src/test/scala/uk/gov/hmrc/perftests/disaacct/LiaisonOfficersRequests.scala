@@ -39,15 +39,12 @@ object LiaisonOfficersRequests extends ServicesConfiguration {
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val PostRemoveLiaisonOfficersPage: HttpRequestBuilder =
-    http("Post no from Remove Liaison Officer Page")
+  val postRemoveLiaisonOfficersPage: HttpRequestBuilder =
+    http("Post yes from Remove Liaison Officer Page")
       .post(s"$disaBaseUrl$disaRoute/remove-liaison-officer?id=#{formId}": String)
-      .formParam("value", "no")
+      .formParam("value", "yes")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
-      .check(
-        header("location").is(s"$disaRoute/added-liaison-officers").saveAs("Added liaison officers page")
-      )
 
   val getCheckLiaisonOfficersDetailPage: HttpRequestBuilder =
     http("Get Check Added Liaison Officer Page")
@@ -71,7 +68,7 @@ object LiaisonOfficersRequests extends ServicesConfiguration {
       )
   val getChangeLiaisonOfficersEmailPage: HttpRequestBuilder =
     http("Get Change Liaison Officer Email Page")
-      .get(s"$disaBaseUrl$disaRoute//change-liaison-officer-email?id=#{formId}": String)
+      .get(s"$disaBaseUrl$disaRoute/change-liaison-officer-email?id=#{formId}": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -86,7 +83,7 @@ object LiaisonOfficersRequests extends ServicesConfiguration {
       )
   val getChangeLiaisonOfficersPhoneNumberPage: HttpRequestBuilder =
     http("Get Change Liaison Officer Phone Number Page")
-      .get(s"$disaBaseUrl$disaRoute//change-liaison-officer-phone-number?id=#{formId}": String)
+      .get(s"$disaBaseUrl$disaRoute/change-liaison-officer-phone-number?id=#{formId}": String)
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -114,13 +111,8 @@ object LiaisonOfficersRequests extends ServicesConfiguration {
       .check(
         header("location").is(s"$disaRoute/check-added-liaison-officer?id=#{formId}")
       )
-  val navigateToAddedLiaisonOfficersPage: HttpRequestBuilder =
-    http("Navigate to Added Liaison Officer Page")
-      .get(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val PostAddedLiaisonOfficersPage: HttpRequestBuilder =
+  val postAddedLiaisonOfficersPage: HttpRequestBuilder =
     http("Post no from Added Liaison Officer Page")
       .post(s"$disaBaseUrl$disaRoute/added-liaison-officers": String)
       .formParam("csrfToken", "#{csrfToken}")
@@ -128,4 +120,62 @@ object LiaisonOfficersRequests extends ServicesConfiguration {
       .check(status.is(303))
       .check(header("location").is(s"$disaRoute/change-of-circumstances"))
 
+  val getLiaisonOfficerNamePage: HttpRequestBuilder =
+    http("Navigate to Liaison Officer Name Page")
+      .get(s"$disaBaseUrl$disaRoute/liaison-officer-name?id=#{formId}")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postLiaisonOfficerNameFromTheLiaisonOfficerNamePage: HttpRequestBuilder =
+    http("Post Liaison Officer Name From 'The Liaison Officer Name' Page")
+      .post(s"$disaBaseUrl$disaRoute/liaison-officer-name?id=#{formId}": String)
+      .formParam("value", "liaison officer")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getLiaisonOfficerEmailPage: HttpRequestBuilder =
+    http("Get Liaison Officer Email Page")
+      .get(s"$disaBaseUrl$disaRoute/liaison-officer-email?id=#{formId}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postEmailAddressFromTheLiaisonOfficerEmailPage: HttpRequestBuilder =
+    http("Post Email Address From 'The Liaison Officer Email' Page")
+      .post(s"$disaBaseUrl$disaRoute/liaison-officer-email?id=#{formId}": String)
+      .formParam("value", "liaisonofficer@gmail.com")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getLiaisonOfficerPhoneNumberPage: HttpRequestBuilder =
+    http("Get Liaison Officer Phone Number Page")
+      .get(s"$disaBaseUrl$disaRoute/liaison-officer-phone-number?id=#{formId}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postPhoneNumberFromTheLiaisonOfficerPhoneNumberPage: HttpRequestBuilder =
+    http("Post Phone Number From 'The Liaison Officer Phone Number' Page")
+      .post(s"$disaBaseUrl$disaRoute/liaison-officer-phone-number?id=#{formId}": String)
+      .formParam("value", "07000000000")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getLiaisonOfficerCommunicationMethodPage: HttpRequestBuilder =
+    http("Get Liaison Officer Communication Method Page")
+      .get(s"$disaBaseUrl$disaRoute/liaison-officer-communication?id=#{formId}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCommunicationMethodFromTheLiaisonOfficerCommunicationPage: HttpRequestBuilder =
+    http("Post Communication Method From 'The Liaison Officer Communication' Page")
+      .post(s"$disaBaseUrl$disaRoute/liaison-officer-communication?id=#{formId}": String)
+      .formParam("value[0]", "byEmail")
+      .formParam("value[1]", "byPhone")
+      .formParam("value[2]", "byPost")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getAddedLiaisonOfficersCheckYourAnswersPage: HttpRequestBuilder =
+    http("Get Added Liaison Officers Check Your Answers Page")
+      .get(s"$disaBaseUrl$disaRoute/check-added-liaison-officer?id=#{formId}": String)
+      .check(status.is(200))
 }

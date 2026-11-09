@@ -19,7 +19,7 @@ package uk.gov.hmrc.perftests.disaacct.utils
 object RandomDataGenerator {
 
   val reservedReferences: Set[String] =
-    Set("Z1400", "Z1500", "Z1503")
+    Set("Z1400", "Z1500", "Z1503", "Z0404","Z0202")
 
   def generateRandomZReference(min: Int, max: Int): String = {
     require(min <= max, "min must be <= max")

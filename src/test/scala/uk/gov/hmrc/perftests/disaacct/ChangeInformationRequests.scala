@@ -24,8 +24,8 @@ import uk.gov.hmrc.perftests.disaacct.constants.AppConfig.{disaBaseUrl, disaRout
 
 object ChangeInformationRequests extends ServicesConfiguration {
 
-  val navigateToChangeInformationPage: HttpRequestBuilder =
-    http("Navigate to Change Information Page")
+  val getChangeInformationPage: HttpRequestBuilder =
+    http("Get Change Information Page")
       .get(s"$disaBaseUrl$disaRoute/change-information")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
@@ -50,4 +50,21 @@ object ChangeInformationRequests extends ServicesConfiguration {
       .check(status.is(303))
       .check(
         header("location").is(s"$disaRoute/change-of-circumstances").saveAs("ChangeOfCircumstancesNonSignatoryPage"))
+
+  val getDeclarationForChanges: HttpRequestBuilder =
+    http("Get Declaration For Isa Managers Page")
+      .get(s"$disaBaseUrl$disaRoute/declaration-for-changes": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postDeclarationForChanges: HttpRequestBuilder =
+    http("Post Declaration For Changes")
+      .post(s"$disaBaseUrl$disaRoute/declaration-for-changes": String)
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangesCompletedConfirmation: HttpRequestBuilder =
+    http("Get Changes Completed Confirmation Page")
+      .get(s"$disaBaseUrl$disaRoute/changes-completed": String)
+      .check(status.is(200))
 }

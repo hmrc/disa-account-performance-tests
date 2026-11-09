@@ -40,16 +40,14 @@ object SignatoryRequests extends ServicesConfiguration {
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val PostRemoveSignatoryPage: HttpRequestBuilder =
-    http("Post no from Remove Signatory Page")
+  val postRemoveSignatoryPage: HttpRequestBuilder =
+    http("Post yes from Remove Signatory Page")
       .post(s"$disaBaseUrl$disaRoute/remove-signatory?id=#{formId}": String)
-      .formParam("value", "no")
+      .formParam("value", "yes")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
-      .check(
-        header("location").is(s"$disaRoute/added-signatories").saveAs("Added Signatories page"))
 
-  val PostAddedSignatoryPage: HttpRequestBuilder =
+  val postAddedSignatoryPage: HttpRequestBuilder =
     http("Post no from Added Signatory Page")
       .post(s"$disaBaseUrl$disaRoute/added-signatories": String)
       .formParam("csrfToken", "#{csrfToken}")
@@ -92,5 +90,35 @@ object SignatoryRequests extends ServicesConfiguration {
       .check(
         header("location").is(s"$disaRoute/check-signatory-details?id=#{formId}")
       )
+  val getSignatoryNamePage: HttpRequestBuilder =
+  http("Navigate to Signatory Name Page")
+    .get(s"$disaBaseUrl$disaRoute/signatory-name?id=#{formId}")
+    .check(status.is(200))
+    .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postSignatoryNameFromSignatoryNamePage: HttpRequestBuilder =
+    http("Post Signatory Name From 'The Signatory Name' Page")
+      .post(s"$disaBaseUrl$disaRoute/signatory-name?id=#{formId}": String)
+      .formParam("value", "Signatory Name")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getSignatoryJobTitlePage: HttpRequestBuilder =
+    http("Get Signatory Job Title Page")
+      .get(s"$disaBaseUrl$disaRoute/signatory-job-title?id=#{formId}": String)
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postJobTitleFromTheSignatoryJobTitlePage: HttpRequestBuilder =
+    http("Post Job title From 'The Signatory Job title' Page")
+      .post(s"$disaBaseUrl$disaRoute/signatory-job-title?id=#{formId}": String)
+      .formParam("value", "QA")
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
+
+  val getAddedSignatoryCheckYourAnswersPage: HttpRequestBuilder =
+    http("Get Added Signatory Check Your Answers Page")
+      .get(s"$disaBaseUrl$disaRoute/check-signatory-details?id=#{formId}": String)
+      .check(status.is(200))
 
 }

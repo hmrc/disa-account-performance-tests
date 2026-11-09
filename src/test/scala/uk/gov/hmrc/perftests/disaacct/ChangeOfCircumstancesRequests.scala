@@ -23,8 +23,8 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.disaacct.constants.AppConfig.{disaBaseUrl, disaRoute}
 object ChangeOfCircumstancesRequests extends ServicesConfiguration {
 
-  val navigateToChangeOfCircumstancesPage: HttpRequestBuilder =
-    http("Navigate to Change of Circumstances Page")
+  val getChangeOfCircumstancesPage: HttpRequestBuilder =
+    http("Get Change of Circumstances Page")
       .get(s"$disaBaseUrl$disaRoute/change-of-circumstances")
       .check(status.is(200))
 }

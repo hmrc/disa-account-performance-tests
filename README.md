@@ -1,4 +1,4 @@
-# disa-account-frontend-performance-tests
+# disa-account-performance-tests
 
 Performance test suite for the `disa-account-frontend`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
 
@@ -11,7 +11,7 @@ Start Mongo Docker container following instructions from the [MDTP Handbook](htt
 Start `DISA_ACCOUNT_ALL` services as follows:
 
 ```bash
-sm2 --start DISA_ACCOUNT_ALL
+sm2 --start DISA_ALL
 ```
 
 ### Logging

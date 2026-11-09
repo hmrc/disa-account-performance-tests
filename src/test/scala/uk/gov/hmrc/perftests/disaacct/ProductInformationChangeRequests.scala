@@ -24,7 +24,7 @@ import uk.gov.hmrc.perftests.disaacct.constants.AppConfig.{disaBaseUrl, disaRout
 
 object ProductInformationChangeRequests extends ServicesConfiguration {
 
-  val navigateToISAProductsPage: HttpRequestBuilder =
+  val getISAProductsPage: HttpRequestBuilder =
     http("Navigate to Change ISA product Page")
       .get(s"$disaBaseUrl$disaRoute/change-products")
       .check(status.is(200))

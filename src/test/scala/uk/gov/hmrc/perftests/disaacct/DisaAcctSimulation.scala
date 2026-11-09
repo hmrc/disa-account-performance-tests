@@ -17,23 +17,23 @@
 package uk.gov.hmrc.perftests.disaacct
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.disaacct.AuthRequests.{navigateToAuthLoginStubPage, submitLogin}
+import uk.gov.hmrc.perftests.disaacct.AuthRequests.{getAuthLoginStubPage, submitLogin}
 import uk.gov.hmrc.perftests.disaacct.LiaisonOfficersRequests._
-import uk.gov.hmrc.perftests.disaacct.ChangeInformationRequests.{navigateToChangeInformationPage, postSectionSelectionFromChangeInformationNonSignatoryPage, postSectionSelectionFromChangeInformationSignatoryPage}
-import uk.gov.hmrc.perftests.disaacct.ChangeOfCircumstancesRequests.navigateToChangeOfCircumstancesPage
+import uk.gov.hmrc.perftests.disaacct.ChangeInformationRequests._
 import OrganisationDetailsChangeRequests._
 import ProductInformationChangeRequests._
+import uk.gov.hmrc.perftests.disaacct.ChangeOfCircumstancesRequests.{getChangeOfCircumstancesPage}
 import uk.gov.hmrc.perftests.disaacct.SignatoryRequests._
 import uk.gov.hmrc.perftests.disaacct.utils.RandomDataGenerator.generateRandomZReference
 
 class DisaAcctSimulation extends PerformanceTestRunner {
 
   setup("ISA-Manager-Account-Signatory-Change", "ISA Manager Account- DISA Signatory Change Journey") withRequests (
-    navigateToAuthLoginStubPage,
+    getAuthLoginStubPage,
     submitLogin(generateRandomZReference(1000, 9999),"change-information","signatory@example.com"),
-    navigateToChangeInformationPage,
+    getChangeInformationPage,
     postSectionSelectionFromChangeInformationSignatoryPage,
-    navigateToChangeOfCircumstancesPage,
+    getChangeOfCircumstancesPage,
     getTradingNameChangePage,
     postTradingNamePage,
     getEnterYourOrganisationAddressPage,
@@ -44,7 +44,7 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     postOrganisationEmailAddressPage,
     getEmailVerificationCodePage,
     postEmailVerificationCodePage,
-    navigateToISAProductsPage,
+    getISAProductsPage,
     postISAProducts,
     getInnovativeFinancialProductsPage,
     postInnovativeFinancialProducts,
@@ -64,36 +64,57 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     postChangeLiaisonOfficersPhoneNumberPage,
     getChangeLiaisonOfficersCommsPrefPage,
     postChangeLiaisonOfficersCommsPrefPage,
-    navigateToAddedLiaisonOfficersPage,
-    PostAddedLiaisonOfficersPage,
+    postAddedLiaisonOfficersPage,
     getAddedSignatoryPage,
     getCheckSignatoryDetailPage,
     getChangeSignatoryNamePage,
     postChangeSignatoryNamePage,
     getChangeSignatoryJobTitlePage,
-    postChangeSignatoryJobTitlePage)
+    postChangeSignatoryJobTitlePage,
+    getDeclarationForChanges,
+    postDeclarationForChanges,
+    getChangesCompletedConfirmation)
 
   setup("ISA-Manager-Account-Signatory-Remove", "ISA Manager Account- DISA Signatory Remove Journey") withRequests (
-    navigateToAuthLoginStubPage,
+    getAuthLoginStubPage,
     submitLogin(generateRandomZReference(1000, 9999),"change-information","signatory@example.com"),
-    navigateToChangeInformationPage,
+    getChangeInformationPage,
     postSectionSelectionFromChangeInformationSignatoryPage,
-    navigateToChangeOfCircumstancesPage,
+    getChangeOfCircumstancesPage,
     getAddedLiaisonOfficersPage,
     getRemoveLiaisonOfficersPage,
-    PostRemoveLiaisonOfficersPage,
-    PostAddedLiaisonOfficersPage,
+    postRemoveLiaisonOfficersPage,
+    getLiaisonOfficerNamePage,
+    postLiaisonOfficerNameFromTheLiaisonOfficerNamePage,
+    getLiaisonOfficerEmailPage,
+    postEmailAddressFromTheLiaisonOfficerEmailPage,
+    getLiaisonOfficerPhoneNumberPage,
+    postPhoneNumberFromTheLiaisonOfficerPhoneNumberPage,
+    getLiaisonOfficerCommunicationMethodPage,
+    postCommunicationMethodFromTheLiaisonOfficerCommunicationPage,
+    getAddedLiaisonOfficersCheckYourAnswersPage,
+    postAddedLiaisonOfficersPage,
     getAddedSignatoryPage,
     getRemoveSignatoryPage,
-    PostRemoveSignatoryPage,
-    PostAddedSignatoryPage)
+    postRemoveSignatoryPage,
+    getSignatoryNamePage,
+    postSignatoryNameFromSignatoryNamePage,
+    getSignatoryJobTitlePage,
+    postJobTitleFromTheSignatoryJobTitlePage,
+    getAddedSignatoryCheckYourAnswersPage,
+    postAddedSignatoryPage,
+    getDeclarationForChanges,
+    postDeclarationForChanges,
+    getChangesCompletedConfirmation
+
+  )
 
   setup("ISA-Manager-Account-Non-Signatory-Change", "ISA Manager Account- DISA Change NonSignatory Journey") withRequests (
-    navigateToAuthLoginStubPage,
+    getAuthLoginStubPage,
     submitLogin(generateRandomZReference(1000, 9999),"change-information","user@test.com"),
-    navigateToChangeInformationPage,
+    getChangeInformationPage,
     postSectionSelectionFromChangeInformationNonSignatoryPage,
-    navigateToChangeOfCircumstancesPage,
+    getChangeOfCircumstancesPage,
     getTradingNameChangePage,
     postTradingNamePage,
     getEnterYourOrganisationAddressPage,
@@ -114,19 +135,34 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     getChangeLiaisonOfficersCommsPrefPage,
     postChangeLiaisonOfficersCommsPrefPage,
     getCheckLiaisonOfficersDetailPage,
-    navigateToAddedLiaisonOfficersPage,
-    PostAddedLiaisonOfficersPage)
+    postAddedLiaisonOfficersPage,
+    getDeclarationForChanges,
+    postDeclarationForChanges,
+    getChangesCompletedConfirmation)
 
   setup("ISA-Manager-Account-Non-Signatory-Remove", "ISA Manager Account- DISA Non Signatory Remove Journey") withRequests (
-    navigateToAuthLoginStubPage,
+    getAuthLoginStubPage,
     submitLogin(generateRandomZReference(1000, 9999),"change-information","user@test.com"),
-    navigateToChangeInformationPage,
+    getChangeInformationPage,
     postSectionSelectionFromChangeInformationNonSignatoryPage,
-    navigateToChangeOfCircumstancesPage,
+    getChangeOfCircumstancesPage,
     getAddedLiaisonOfficersPage,
     getRemoveLiaisonOfficersPage,
-    PostRemoveLiaisonOfficersPage,
-    PostAddedLiaisonOfficersPage
+    postRemoveLiaisonOfficersPage,
+    getLiaisonOfficerNamePage,
+    postLiaisonOfficerNameFromTheLiaisonOfficerNamePage,
+    getLiaisonOfficerEmailPage,
+    postEmailAddressFromTheLiaisonOfficerEmailPage,
+    getLiaisonOfficerPhoneNumberPage,
+    postPhoneNumberFromTheLiaisonOfficerPhoneNumberPage,
+    getLiaisonOfficerCommunicationMethodPage,
+    postCommunicationMethodFromTheLiaisonOfficerCommunicationPage,
+    getAddedLiaisonOfficersCheckYourAnswersPage,
+    postAddedLiaisonOfficersPage,
+    getDeclarationForChanges,
+    postDeclarationForChanges,
+    getChangesCompletedConfirmation
+
   )
 
   runSimulation()
