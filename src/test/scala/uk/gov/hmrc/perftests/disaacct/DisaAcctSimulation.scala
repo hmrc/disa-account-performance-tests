@@ -28,7 +28,7 @@ import uk.gov.hmrc.perftests.disaacct.utils.RandomDataGenerator.generateRandomZR
 
 class DisaAcctSimulation extends PerformanceTestRunner {
 
-  setup("ISA-Manager-Account-Signatory-Change", "ISA Manager Account- DISA Signatory Change Journey") withRequests (
+  setup("ISA-Manager-Account-Signatory-Journey", "ISA Manager Account- DISA Signatory Journey") withRequests (
     getAuthLoginStubPage,
     submitLogin(generateRandomZReference(1000, 9999),"change-information","signatory@example.com"),
     getChangeInformationPage,
@@ -55,6 +55,17 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     getFcaArticlesPage,
     postFcaArticlesPage,
     getAddedLiaisonOfficersPage,
+    getRemoveLiaisonOfficersPage,
+    postRemoveLiaisonOfficersPage,
+    getLiaisonOfficerNamePage,
+    postLiaisonOfficerNameFromTheLiaisonOfficerNamePage,
+    getLiaisonOfficerEmailPage,
+    postEmailAddressFromTheLiaisonOfficerEmailPage,
+    getLiaisonOfficerPhoneNumberPage,
+    postPhoneNumberFromTheLiaisonOfficerPhoneNumberPage,
+    getLiaisonOfficerCommunicationMethodPage,
+    postCommunicationMethodFromTheLiaisonOfficerCommunicationPage,
+    getCheckAddedLiaisonOfficersCheckYourAnswersPage,
     getCheckLiaisonOfficersDetailPage,
     getChangeLiaisonOfficersNamePage,
     postChangeLiaisonOfficersNamePage,
@@ -75,41 +86,7 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     postDeclarationForChanges,
     getChangesCompletedConfirmation)
 
-  setup("ISA-Manager-Account-Signatory-Remove", "ISA Manager Account- DISA Signatory Remove Journey") withRequests (
-    getAuthLoginStubPage,
-    submitLogin(generateRandomZReference(1000, 9999),"change-information","signatory@example.com"),
-    getChangeInformationPage,
-    postSectionSelectionFromChangeInformationSignatoryPage,
-    getChangeOfCircumstancesPage,
-    getAddedLiaisonOfficersPage,
-    getRemoveLiaisonOfficersPage,
-    postRemoveLiaisonOfficersPage,
-    getLiaisonOfficerNamePage,
-    postLiaisonOfficerNameFromTheLiaisonOfficerNamePage,
-    getLiaisonOfficerEmailPage,
-    postEmailAddressFromTheLiaisonOfficerEmailPage,
-    getLiaisonOfficerPhoneNumberPage,
-    postPhoneNumberFromTheLiaisonOfficerPhoneNumberPage,
-    getLiaisonOfficerCommunicationMethodPage,
-    postCommunicationMethodFromTheLiaisonOfficerCommunicationPage,
-    getAddedLiaisonOfficersCheckYourAnswersPage,
-    postAddedLiaisonOfficersPage,
-    getAddedSignatoryPage,
-    getRemoveSignatoryPage,
-    postRemoveSignatoryPage,
-    getSignatoryNamePage,
-    postSignatoryNameFromSignatoryNamePage,
-    getSignatoryJobTitlePage,
-    postJobTitleFromTheSignatoryJobTitlePage,
-    getAddedSignatoryCheckYourAnswersPage,
-    postAddedSignatoryPage,
-    getDeclarationForChanges,
-    postDeclarationForChanges,
-    getChangesCompletedConfirmation
-
-  )
-
-  setup("ISA-Manager-Account-Non-Signatory-Change", "ISA Manager Account- DISA Change NonSignatory Journey") withRequests (
+  setup("ISA-Manager-Account-Non-Signatory-Journey", "ISA Manager Account- DISA NonSignatory Journey") withRequests (
     getAuthLoginStubPage,
     submitLogin(generateRandomZReference(1000, 9999),"change-information","user@test.com"),
     getChangeInformationPage,
@@ -124,28 +101,7 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     getOrganisationEmailAddressPage,
     postOrganisationEmailAddressPage,
     getEmailVerificationCodePage,
-    getAddedLiaisonOfficersPage,
-    getCheckLiaisonOfficersDetailPage,
-    getChangeLiaisonOfficersNamePage,
-    postChangeLiaisonOfficersNamePage,
-    getChangeLiaisonOfficersEmailPage,
-    postChangeLiaisonOfficersEmailPage,
-    getChangeLiaisonOfficersPhoneNumberPage,
-    postChangeLiaisonOfficersPhoneNumberPage,
-    getChangeLiaisonOfficersCommsPrefPage,
-    postChangeLiaisonOfficersCommsPrefPage,
-    getCheckLiaisonOfficersDetailPage,
-    postAddedLiaisonOfficersPage,
-    getDeclarationForChanges,
-    postDeclarationForChanges,
-    getChangesCompletedConfirmation)
-
-  setup("ISA-Manager-Account-Non-Signatory-Remove", "ISA Manager Account- DISA Non Signatory Remove Journey") withRequests (
-    getAuthLoginStubPage,
-    submitLogin(generateRandomZReference(1000, 9999),"change-information","user@test.com"),
-    getChangeInformationPage,
-    postSectionSelectionFromChangeInformationNonSignatoryPage,
-    getChangeOfCircumstancesPage,
+    postEmailVerificationCodePage,
     getAddedLiaisonOfficersPage,
     getRemoveLiaisonOfficersPage,
     postRemoveLiaisonOfficersPage,
@@ -157,13 +113,20 @@ class DisaAcctSimulation extends PerformanceTestRunner {
     postPhoneNumberFromTheLiaisonOfficerPhoneNumberPage,
     getLiaisonOfficerCommunicationMethodPage,
     postCommunicationMethodFromTheLiaisonOfficerCommunicationPage,
-    getAddedLiaisonOfficersCheckYourAnswersPage,
+    getCheckAddedLiaisonOfficersCheckYourAnswersPage,
+    getCheckLiaisonOfficersDetailPage,
+    getChangeLiaisonOfficersNamePage,
+    postChangeLiaisonOfficersNamePage,
+    getChangeLiaisonOfficersEmailPage,
+    postChangeLiaisonOfficersEmailPage,
+    getChangeLiaisonOfficersPhoneNumberPage,
+    postChangeLiaisonOfficersPhoneNumberPage,
+    getChangeLiaisonOfficersCommsPrefPage,
+    postChangeLiaisonOfficersCommsPrefPage,
     postAddedLiaisonOfficersPage,
     getDeclarationForChanges,
     postDeclarationForChanges,
-    getChangesCompletedConfirmation
-
-  )
+    getChangesCompletedConfirmation)
 
   runSimulation()
 

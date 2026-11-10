@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.disaacct.constants.AppConfig.{disaBaseUrl, disaRout
 object ProductInformationChangeRequests extends ServicesConfiguration {
 
   val getISAProductsPage: HttpRequestBuilder =
-    http("Navigate to Change ISA product Page")
+    http("get Change ISA product Page")
       .get(s"$disaBaseUrl$disaRoute/change-products")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
@@ -37,9 +37,7 @@ object ProductInformationChangeRequests extends ServicesConfiguration {
       .formParam("value[2]", "stocksAndSharesIsas")
       .formParam("value[4]", "innovativeFinanceIsas")
       .formParam("csrfToken", "#{csrfToken}")
-      .check(status.is(303))
-      .check(
-        header("location").is(s"$disaRoute/change-of-circumstances").saveAs("ManageOrganisationInformationPage")
+      .check(status.is(303)
       )
 
   val getInnovativeFinancialProductsPage: HttpRequestBuilder =

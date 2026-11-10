@@ -174,7 +174,7 @@ object LiaisonOfficersRequests extends ServicesConfiguration {
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
-  val getAddedLiaisonOfficersCheckYourAnswersPage: HttpRequestBuilder =
+  val getCheckAddedLiaisonOfficersCheckYourAnswersPage: HttpRequestBuilder =
     http("Get Added Liaison Officers Check Your Answers Page")
       .get(s"$disaBaseUrl$disaRoute/check-added-liaison-officer?id=#{formId}": String)
       .check(status.is(200))
